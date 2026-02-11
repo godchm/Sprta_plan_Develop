@@ -3,6 +3,7 @@ package com.sprta_plan_develop.plan.controller;
 
 import com.sprta_plan_develop.plan.dto.*;
 import com.sprta_plan_develop.plan.service.PlanService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class PlanController {
     @PostMapping("/users/{userId}/plans")
     public ResponseEntity<CreatePlanResponse> createPlan(
             @PathVariable Long userId,
-            @RequestBody CreatePlanRequest request
+            @Valid @RequestBody CreatePlanRequest request
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(userId,request));
     }
@@ -46,7 +47,7 @@ public class PlanController {
     @PutMapping("/users/{userId}/plans/{planId}")
     public ResponseEntity<UpdatePlanResponse> updateComment(
             @PathVariable Long planId,
-            @RequestBody UpdatePlanRequest request
+            @Valid @RequestBody UpdatePlanRequest request
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.update(planId, request));
     }

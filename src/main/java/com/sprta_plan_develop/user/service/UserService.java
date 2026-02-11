@@ -1,5 +1,6 @@
 package com.sprta_plan_develop.user.service;
 
+import com.sprta_plan_develop.global.exception.CommonException;
 import com.sprta_plan_develop.user.dto.*;
 import com.sprta_plan_develop.user.entity.User;
 import com.sprta_plan_develop.user.repository.UserRepository;
@@ -22,7 +23,7 @@ public class UserService {
     @Transactional
     public User register(CreateUserRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("이미 존재하는 사용자입니다.");
+            throw new CommonException("이미 존재하는 사용자입니다.");
         }
 
         User user = new User(
@@ -35,18 +36,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
-    // 생성
-//    @Transactional
-//    public CreateUserResponse save(CreateUserRequest request) {
-//        User user= new User(request.getUsername(), request.getUseremail()
-//                ) ;
-//        User savedUser = userRepository.save(user);
-//        return new CreateUserResponse(
-//                savedUser.getId(),
-//                savedUser.getUsername()
-//        );
-//    }
 
     // 모두 조회
     @Transactional(readOnly = true)
@@ -70,7 +59,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public GetUserResponse getOne(Long postingId) {
        User user = userRepository.findById(postingId).orElseThrow(
-                () -> new IllegalStateException("없는 게시글 입니다.")
+                () -> new CommonException("없는 게시글 입니다.")
         );
         return new GetUserResponse(
                 user.getId(),
@@ -83,7 +72,7 @@ public class UserService {
     @Transactional
     public UpdateUserResponse update(Long postingId, UpdateUserRequest request) {
         User user = userRepository.findById(postingId).orElseThrow(
-                () -> new IllegalStateException("없는 게시글 입니다.")
+                () -> new CommonException("없는 게시글 입니다.")
         );
         user.update(request.getUsername(), request.getUseremail());
         return new UpdateUserResponse(
@@ -98,7 +87,7 @@ public class UserService {
     public void delete(Long postingId) {
         boolean existence = userRepository.existsById(postingId);
         if (!existence) {
-            throw new IllegalStateException("없는 게시글 입니다.");
+            throw new CommonException("없는 게시글 입니다.");
         }
         userRepository.deleteById(postingId);
     }
@@ -109,7 +98,7 @@ public class UserService {
         User user=userRepository.findByUseremail(request.getUseremail())
                 .orElseThrow( ()->new IllegalArgumentException("이메일이 존재하지 않습니다."));
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
+            throw new CommonException("비밀번호가 틀렸습니다.");
         }
         return new SessionUser(user.getId());
     }
