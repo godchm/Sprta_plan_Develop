@@ -12,6 +12,5 @@ public class SessionUser {
     public SessionUser(Long id) {
         this.id = id;
 
-
     }
 }

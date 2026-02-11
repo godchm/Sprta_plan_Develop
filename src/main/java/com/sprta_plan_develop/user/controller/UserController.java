@@ -18,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    // 회원가입
+    // 회원가입. 유저 생성
     @PostMapping("/users/register")
     public ResponseEntity<CreateUserResponse> register(@Valid @RequestBody CreateUserRequest request) {
         User user = userService.register(request);
@@ -29,13 +29,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    /// / 생성
-//    @PostMapping("/users")
-//    public ResponseEntity<CreateUserResponse> userCreate(
-//            @RequestBody CreateUserRequest request
-//    ) {
-//        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(request));
-//    }
 
 // 로그인
     @PostMapping("/users/login")
@@ -101,6 +94,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    // 로그인 조건문
     private SessionUser UserLogin(SessionUser user) {
         if (user == null) {
             throw new IllegalArgumentException("로그인이 필요.");
@@ -108,6 +102,7 @@ public class UserController {
         return user;
     }
 
+    // 권한 기능.
     private void UserLoginId(SessionUser user, Long userId) {
         UserLogin(user);
         if (!user.getId().equals(userId)) {

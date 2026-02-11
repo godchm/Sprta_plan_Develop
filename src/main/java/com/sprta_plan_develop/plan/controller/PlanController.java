@@ -18,6 +18,7 @@ public class PlanController {
     private final PlanService planService;
 
 
+    // 일정 생성.
     @PostMapping("/users/{userId}/plans")
     public ResponseEntity<CreatePlanResponse> createPlan(
             @PathVariable Long userId,

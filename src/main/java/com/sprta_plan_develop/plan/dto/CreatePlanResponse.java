@@ -4,7 +4,7 @@ import com.sprta_plan_develop.user.entity.User;
 
 import java.time.LocalDateTime;
 
-public class CreatePlanResponse {
+public class  CreatePlanResponse {
 
     private final String title;
     private final String content;
