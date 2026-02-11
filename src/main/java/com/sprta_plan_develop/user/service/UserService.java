@@ -1,5 +1,6 @@
 package com.sprta_plan_develop.user.service;
 
+import com.sprta_plan_develop.global.config.PasswordEncoder;
 import com.sprta_plan_develop.global.exception.CommonException;
 import com.sprta_plan_develop.user.dto.*;
 import com.sprta_plan_develop.user.entity.User;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     // 회원가입
@@ -29,7 +31,7 @@ public class UserService {
         User user = new User(
                 request.getUsername(),
                 request.getUseremail(),
-                request.getPassword()
+                passwordEncoder.encode(request.getPassword())
 
         );
 
@@ -97,7 +99,7 @@ public class UserService {
     public SessionUser login(@Valid LoginRequest request) {
         User user=userRepository.findByUseremail(request.getUseremail())
                 .orElseThrow( ()->new IllegalArgumentException("이메일이 존재하지 않습니다."));
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(),user.getPassword())) {
             throw new CommonException("비밀번호가 틀렸습니다.");
         }
         return new SessionUser(user.getId());

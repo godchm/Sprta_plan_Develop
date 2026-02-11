@@ -26,7 +26,7 @@ public class PlanService {
     @Transactional
     public CreatePlanResponse save(Long userId,CreatePlanRequest request) {
       User user = userRepository.findById(userId).orElseThrow(
-                () -> new CommonException("없는 게시글입니다.")
+                () -> new CommonException("유저 정보가 없습니다.")
         );
 
       Plan plan=new Plan(
@@ -49,7 +49,7 @@ public class PlanService {
     public GetOnePlanResponse getOne(Long userId,Long planId){
         // 일정 한건 조회
         Plan plan=planRepository.findByIdAndUserId(planId,userId).orElseThrow(
-                ()-> new CommonException("없는 유저 입니다.")
+                ()-> new CommonException("없는 일정이거나, 유저정보가 없습니다.")
         );
         return new GetOnePlanResponse(
                 plan.getId(),
@@ -69,7 +69,7 @@ public class PlanService {
     public List<GetOnePlanResponse> getAll(Long userId) {
 
        User user = userRepository.findById(userId).orElseThrow(
-                () -> new CommonException("없는 일정입니다.")
+                () -> new CommonException("없는 일정이거나, 유저정보가 없습니다.")
         );
 
         List<Plan> plans = planRepository.findByUser(user);
@@ -97,7 +97,7 @@ public class PlanService {
     @Transactional
     public UpdatePlanResponse update(Long plantId, UpdatePlanRequest request) {
          Plan plan  = planRepository.findById(plantId).orElseThrow(
-                () -> new CommonException("없는 댓글입니다.")
+                () -> new CommonException("없는 일정이거나, 유저정보가 없습니다.")
         );
         plan.planUpdate(
                 request.getTitle(),
@@ -116,7 +116,7 @@ public class PlanService {
     public void delete(Long planId) {
         boolean existence = planRepository.existsById(planId);
         if (!existence) {
-            throw new CommonException("없는 댓글입니다.");
+            throw new CommonException("없는 일정이거나, 유저정보가 없습니다.");
         }
         planRepository.deleteById(planId);
     }
