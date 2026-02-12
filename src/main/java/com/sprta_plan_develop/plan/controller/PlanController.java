@@ -27,7 +27,7 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(userId,request));
     }
 
-    // 단건조회
+    // 단건 조회
     @GetMapping("/users/{userId}/plans/{planId}")
     public ResponseEntity<GetOnePlanResponse> getOnePlan(
             @PathVariable Long userId,
