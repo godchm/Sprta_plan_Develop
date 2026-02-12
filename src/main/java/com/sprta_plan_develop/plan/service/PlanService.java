@@ -95,8 +95,8 @@ public class PlanService {
 
     // 일정 수정하기
     @Transactional
-    public UpdatePlanResponse update(Long plantId, UpdatePlanRequest request) {
-         Plan plan  = planRepository.findById(plantId).orElseThrow(
+    public UpdatePlanResponse update(Long planId, UpdatePlanRequest request) {
+         Plan plan  = planRepository.findById(planId).orElseThrow(
                 () -> new CommonException("없는 일정이거나, 유저정보가 없습니다.")
         );
         plan.planUpdate(
