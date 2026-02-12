@@ -1,6 +1,6 @@
 package com.sprta_plan_develop.comment.entity;
 
-import com.sprta_plan_develop.plan.entity.BaseEntity;
+import com.sprta_plan_develop.global.config.BaseEntity;
 import com.sprta_plan_develop.plan.entity.Plan;
 import com.sprta_plan_develop.user.entity.User;
 import jakarta.persistence.*;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
     @Entity
     @Table(name = "comments")
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class Comment {
+    public class Comment extends BaseEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

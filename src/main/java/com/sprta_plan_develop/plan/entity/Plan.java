@@ -1,5 +1,6 @@
 package com.sprta_plan_develop.plan.entity;
 
+import com.sprta_plan_develop.global.config.BaseEntity;
 import com.sprta_plan_develop.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

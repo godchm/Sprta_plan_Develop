@@ -56,8 +56,8 @@ public class UserController {
     public ResponseEntity<List<GetUserResponse>> getAll(
             @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser
     ) {
-        UserLogin(sessionUser);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAll(sessionUser));
 
     }
 
@@ -68,8 +68,8 @@ public class UserController {
             @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
             @PathVariable Long userId
     ) {
-        UserLoginId(sessionUser, userId);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getOne(userId));
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getOne(sessionUser,userId));
     }
 
     // 유저 수정
@@ -77,10 +77,10 @@ public class UserController {
     public ResponseEntity<UpdateUserResponse> updateUsers(
             @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
             @PathVariable Long userId,
-            @RequestBody UpdateUserRequest request
+            @Valid @RequestBody UpdateUserRequest request
     ) {
-        UserLoginId(sessionUser, userId);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.update(userId, request));
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(sessionUser,userId, request));
     }
 
     // 유저 삭제
@@ -89,26 +89,12 @@ public class UserController {
             @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
             @PathVariable Long userId
     ) {
-        UserLoginId(sessionUser, userId);
-        userService.delete(userId);
+
+        userService.delete(sessionUser,userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    // 로그인 조건문
-    private SessionUser UserLogin(SessionUser user) {
-        if (user == null) {
-            throw new IllegalArgumentException("로그인이 필요.");
-        }
-        return user;
-    }
 
-    // 권한 기능.
-    private void UserLoginId(SessionUser user, Long userId) {
-        UserLogin(user);
-        if (!user.getId().equals(userId)) {
-            throw new IllegalArgumentException("권한이 없습니다.");
-        }
-    }
 
 
 }

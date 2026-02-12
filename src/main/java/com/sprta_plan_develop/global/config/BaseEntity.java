@@ -1,4 +1,4 @@
-package com.sprta_plan_develop.plan.entity;
+package com.sprta_plan_develop.global.config;
 
 import jakarta.persistence.*;
 import lombok.Getter;

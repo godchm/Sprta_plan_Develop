@@ -41,7 +41,8 @@ public class UserService {
 
     // 모두 조회
     @Transactional(readOnly = true)
-    public List<GetUserResponse> getAll() {
+    public List<GetUserResponse> getAll( SessionUser sessionUser) {
+        UserLogin(sessionUser);
         List<User> users = userRepository.findAll();
 
         List<GetUserResponse> dtos = new ArrayList<>();
@@ -59,10 +60,12 @@ public class UserService {
 
     // 단건 조회
     @Transactional(readOnly = true)
-    public GetUserResponse getOne(Long postingId) {
-       User user = userRepository.findById(postingId).orElseThrow(
+    public GetUserResponse getOne(SessionUser sessionUser,Long userId) {
+        UserLoginId(sessionUser, userId);
+        User user = userRepository.findById(userId).orElseThrow(
                 () -> new CommonException("없는 게시글 입니다.")
         );
+
         return new GetUserResponse(
                 user.getId(),
                 user.getUsername(),
@@ -72,8 +75,10 @@ public class UserService {
 
     // 수정
     @Transactional
-    public UpdateUserResponse update(Long postingId, UpdateUserRequest request) {
-        User user = userRepository.findById(postingId).orElseThrow(
+    public UpdateUserResponse update(SessionUser sessionUser,Long userId, UpdateUserRequest request) {
+
+        UserLoginId(sessionUser, userId);
+        User user = userRepository.findById(userId).orElseThrow(
                 () -> new CommonException("없는 게시글 입니다.")
         );
         user.update(request.getUsername(), request.getUseremail());
@@ -86,12 +91,13 @@ public class UserService {
 
     // 삭제
     @Transactional
-    public void delete(Long postingId) {
-        boolean existence = userRepository.existsById(postingId);
+    public void delete(SessionUser sessionUser,Long userId) {
+        UserLoginId(sessionUser, userId);
+        boolean existence = userRepository.existsById(userId);
         if (!existence) {
             throw new CommonException("없는 게시글 입니다.");
         }
-        userRepository.deleteById(postingId);
+        userRepository.deleteById(userId);
     }
 
     // 로그인
@@ -103,5 +109,22 @@ public class UserService {
             throw new CommonException("비밀번호가 틀렸습니다.");
         }
         return new SessionUser(user.getId());
+    }
+
+
+    // 로그인 조건문
+    private SessionUser UserLogin(SessionUser user) {
+        if (user == null) {
+            throw new CommonException("로그인이 필요.");
+        }
+        return user;
+    }
+
+    // 권한 기능.
+    private void UserLoginId(SessionUser user, Long userId) {
+        UserLogin(user);
+        if (!user.getId().equals(userId)) {
+            throw new CommonException("권한이 없습니다.");
+        }
     }
 }
