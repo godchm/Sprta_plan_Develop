@@ -1,6 +1,7 @@
 package com.sprta_plan_develop.plan.service;
 
 
+import com.sprta_plan_develop.comment.repository.CommentRepository;
 import com.sprta_plan_develop.global.exception.CommonException;
 import com.sprta_plan_develop.plan.dto.*;
 import com.sprta_plan_develop.plan.entity.Plan;
@@ -20,6 +21,7 @@ public class PlanService {
 
     private final PlanRepository planRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
 
     // 새 일정 입력
@@ -118,6 +120,8 @@ public class PlanService {
         if (!existence) {
             throw new CommonException("없는 일정이거나, 유저정보가 없습니다.");
         }
+
+        commentRepository.deleteByPlanUserId(planId);
         planRepository.deleteById(planId);
     }
 }

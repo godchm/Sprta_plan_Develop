@@ -1,7 +1,9 @@
 package com.sprta_plan_develop.user.service;
 
+import com.sprta_plan_develop.comment.repository.CommentRepository;
 import com.sprta_plan_develop.global.config.PasswordEncoder;
 import com.sprta_plan_develop.global.exception.CommonException;
+import com.sprta_plan_develop.plan.repository.PlanRepository;
 import com.sprta_plan_develop.user.dto.*;
 import com.sprta_plan_develop.user.entity.User;
 import com.sprta_plan_develop.user.repository.UserRepository;
@@ -19,6 +21,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CommentRepository commentRepository;
+    private final PlanRepository planRepository;
 
 
     // 회원가입
@@ -63,7 +67,7 @@ public class UserService {
     public GetUserResponse getOne(SessionUser sessionUser,Long userId) {
         UserLoginId(sessionUser, userId);
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new CommonException("없는 게시글 입니다.")
+                () -> new CommonException("유저 입니다.")
         );
 
         return new GetUserResponse(
@@ -97,7 +101,14 @@ public class UserService {
         if (!existence) {
             throw new CommonException("없는 게시글 입니다.");
         }
+
+        commentRepository.deleteByPlanUserId(userId);
+
+
+        planRepository.deleteByUserId(userId);
+
         userRepository.deleteById(userId);
+//        userRepository.deleteById(userId);
     }
 
     // 로그인

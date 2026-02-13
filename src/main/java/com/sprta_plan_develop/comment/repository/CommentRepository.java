@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-    List<Plan>findByUser(User user);
     List<Comment> findByPlanAndUser(Plan plan, User user);
     Optional<Comment> findByIdAndUserIdAndPlanId(Long userId, Long planId, Long commentId);
+    long countByPlanId(Long planId);
+
+
+    // 댓글 정보 가져오기
+    void deleteByPlanUserId(Long userId);
 }

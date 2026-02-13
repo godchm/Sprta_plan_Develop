@@ -117,9 +117,15 @@ public class CommentService {
         if (!existence){
             throw new CommonException("유저, 일정, 댓글 정보가 없습니다.");
         }
+
         commentRepository.deleteById(commentId);
 
         }
+
+//        // 댓글 세기
+//        public long commentCount(Long planId){
+//            return commentRepository.countByPlanId(planId);
+//        }
 
 
 
