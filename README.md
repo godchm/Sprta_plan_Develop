@@ -56,8 +56,8 @@
 ### 1. 프로젝트 클론
 
 ```bash
-git clone https://github.com/godchm/choehyeongmin7_sparta_PlanProject.git
-cd choehyeongmin7_sparta_PlanProject
+git clone https://github.com/godchm/Sprta_plan_Develop.git
+cd Sprta_plan_Develop
 ```
 ### 2.데이터베이스 설정
 ```bash
