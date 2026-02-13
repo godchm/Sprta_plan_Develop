@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<Comment,Long> {
     List<Comment> findByPlanAndUser(Plan plan, User user);
     Optional<Comment> findByIdAndUserIdAndPlanId(Long userId, Long planId, Long commentId);
-    long countByPlanId(Long planId);
+//    long countByPlanId(Long planId);
 
 
-    // 댓글 정보 가져오기
+    // 댓글 정보 가져오기. 삭제 기능 구현 위해.
     void deleteByPlanUserId(Long userId);
 }

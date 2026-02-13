@@ -17,5 +17,6 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
     // 특정 유저의 특정 일정 1개 조회
     Optional<Plan> findByIdAndUserId(Long planId, Long userId);
 
+    // 삭제 기능
     void deleteByUserId(Long userId);
 }

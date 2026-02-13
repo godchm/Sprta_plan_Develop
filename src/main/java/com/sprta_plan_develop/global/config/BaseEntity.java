@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
+    // 상속으로 뿌려주자~
     @CreatedDate
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

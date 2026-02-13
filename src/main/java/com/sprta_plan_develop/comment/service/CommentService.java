@@ -27,6 +27,7 @@ public class CommentService {
     private final PlanRepository planRepository;
     private final UserRepository userRepository;
 
+    // 댓글 생성
     @Transactional
     public CreateCommentResponse commentsave(Long userId, Long planId, CreateCommentRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
@@ -79,6 +80,7 @@ public class CommentService {
         List<Comment> comments = commentRepository.findByPlanAndUser(plan, user);
         List<GetCommentsResponse> dtos = new ArrayList<>();
 
+        // 유저 이름, 유저 일정 내용, 유저 일정 제목 갖고 오기
         for (Comment comment : comments) {
             GetCommentsResponse dto = new GetCommentsResponse(
                     comment.getId(),
