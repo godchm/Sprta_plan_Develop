@@ -95,7 +95,7 @@ java -jar build/libs/Sprta_plan-0.0.1-SNAPSHOT.jar
 
 ### 🔹 회원가입
 
-POST /users/register
+**POST** `/users/register`
 
 Body
 
@@ -108,7 +108,7 @@ Body
 ```
 ### 🔹 로그인 
 
-POST /users/login
+**POST** `/users/login`
 
 ```json
 {
@@ -119,19 +119,19 @@ POST /users/login
 
 ### 🔹 로그아웃
 
-POST /users/logout
+**POST** `/users/logout`
 
 ### 🔹 유저 전체 조회
 
-GET /users
+**GET** `/users`
 
 ### 🔹 유저 단건 조회
 
-GET /users/{userId}
+**GET** `/users/{userId}`
 
 ### 🔹 유저 수정
 
-PUT /users/{userId}
+**PUT** `/users/{userId}`
 
 Body
 
@@ -144,12 +144,7 @@ Body
 
 ### 🔹 유저 삭제
 
-DELETE /users/{userId}
-
-※ 삭제 시
-
-* 해당 유저의 모든 일정 삭제
-* 일정에 달린 댓글도 전부 삭제
+**DELETE** `/users/{userId}`
 
 ---
 
@@ -157,7 +152,7 @@ DELETE /users/{userId}
 
 ### 🔹 일정 생성
 
-POST /users/{userId}/plans
+**POST** `/users/{userId}/plans`
 
 Body
 
@@ -170,15 +165,15 @@ Body
 
 ### 🔹 일정 전체 조회
 
-GET /users/{userId}/plans
+**GET** `/users/{userId}/plans`
 
 ### 🔹 일정 단건 조회
 
-GET /users/{userId}/plans/{planId}
+**GET** `/users/{userId}/plans/{planId}`
 
 ### 🔹 일정 수정
 
-PUT /users/{userId}/plans/{planId}
+**PUT** `/users/{userId}/plans/{planId}`
 
 Body
 
@@ -191,11 +186,8 @@ Body
 
 ### 🔹 일정 삭제
 
-DELETE /users/{userId}/plans/{planId}
+**DELETE** `/users/{userId}/plans/{planId}`
 
-※ 삭제 시
-
-* 해당 일정의 모든 댓글 삭제
 
 ---
 
@@ -203,7 +195,7 @@ DELETE /users/{userId}/plans/{planId}
 
 ### 🔹 댓글 생성
 
-POST /users/{userId}/plans/{planId}/comments
+**POST** `/users/{userId}/plans/{planId}/comments`
 
 Body
 
@@ -215,15 +207,15 @@ Body
 
 ### 🔹 댓글 전체 조회
 
-GET /users/{userId}/plans/{planId}/comments
+**GET** `/users/{userId}/plans/{planId}/comments`
 
 ### 🔹 댓글 단건 조회
 
-GET /users/{userId}/plans/{planId}/comments/{commentId}
+**GET** `/users/{userId}/plans/{planId}/comments/{commentId}`
 
 ### 🔹 댓글 수정
 
-PUT /users/{userId}/plans/{planId}/comments/{commentId}
+**PUT** `/users/{userId}/plans/{planId}/comments/{commentId}`
 
 Body
 
@@ -235,7 +227,7 @@ Body
 
 ### 🔹 댓글 삭제
 
-DELETE /users/{userId}/plans/{planId}/comments/{commentId}
+**DELETE** `/users/{userId}/plans/{planId}/comments/{commentId}`
 
 
 # 일정 관리 Develop 구현 상황
