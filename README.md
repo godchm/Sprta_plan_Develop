@@ -229,6 +229,8 @@ Body
 
 **DELETE** `/users/{userId}/plans/{planId}/comments/{commentId}`
 
+# ERD
+<img width="826" height="1472" alt="ERD_Develop" src="https://github.com/user-attachments/assets/283ce3bd-72b8-4b40-8a6d-2d150b9ad434" />
 
 # 일정 관리 Develop 구현 상황
 
@@ -252,8 +254,7 @@ Body
 **특이사항**
 필수 기능 오류 수정 중.
 
-# ERD
-<img width="826" height="1472" alt="ERD_Develop" src="https://github.com/user-attachments/assets/283ce3bd-72b8-4b40-8a6d-2d150b9ad434" />
+
 
 
 ### 2026.02.11 16:55
